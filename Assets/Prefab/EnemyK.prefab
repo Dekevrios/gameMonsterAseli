@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2406125674383678206}
   m_Layer: 3
   m_Name: EnemyK
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
     m_Bits: 64
   facingRight: 1
   enemySpeed: 2
-  attackCd: 3
+  attackCd: 2
   attackDamage: 5
   attackTimer: 0
 --- !u!95 &2406125674383678206

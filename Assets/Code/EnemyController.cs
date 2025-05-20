@@ -22,17 +22,30 @@ public class EnemyController : MonoBehaviour
         currHp -= damage;
         if (currHp <= 0)
         {
+
+            Debug.Log("Enemy took damage and died");
             Die();
         }
     }
 
     void Die()
     {
-        if (OnEnemyDeath != null)
+        Debug.Log("Enemy died");
+        if (GameManage.instance == null)
         {
-            OnEnemyDeath(gameObject);
+            Debug.LogError("GameManage.instance is NULL!");
+        }
+        else
+        {
+            GameManage.instance.EnemyDeath();
         }
 
+        if (OnEnemyDeath != null)
+        {
+            
+            OnEnemyDeath(gameObject);
+        }
+     
         Destroy(gameObject);
     }
 }
