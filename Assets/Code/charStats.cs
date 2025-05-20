@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class charStats : MonoBehaviour
 {
@@ -33,12 +34,18 @@ public class charStats : MonoBehaviour
 
         if (currHp <= 0)
         {
-            Destroy(gameObject);
+            PlayerDie();
         }
     }
 
     public void setHp(int hpPlus)
     {
         currHp += hpPlus;
+    }
+
+    public void PlayerDie()
+    {
+        SceneManager.LoadScene("GameOver");
+
     }
 }

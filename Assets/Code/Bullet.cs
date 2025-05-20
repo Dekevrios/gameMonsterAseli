@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour
     public float bulletLife = 1f;
     public float bulletSpeed = 1f;
     public float rotation = 0f;
+    public int damage = 10;
+    public string targetTag = "Player";
 
     private Vector2 spawnPoint;
     private float timer = 0f;
@@ -31,5 +33,26 @@ public class Bullet : MonoBehaviour
         float y = timer * bulletSpeed * transform.right.y;
 
         return new Vector2(x + spawnPoint.x, y + spawnPoint.y);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag(targetTag))
+        {
+            Debug.Log("Hit " + collision.gameObject.name);
+            charStats stats = collision.gameObject.GetComponent<charStats>();
+
+            if (stats != null)
+            {
+                stats.TakeDamage(damage);
+            }
+            else
+            {
+                Debug.Log("No charStats component found on " + collision.gameObject.name);
+            }
+
+
+            Destroy(this.gameObject);
+        }
     }
 }

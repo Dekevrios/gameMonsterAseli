@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3981556450946102197}
   - component: {fileID: 7367082042636557129}
   - component: {fileID: 7736497285723118223}
+  - component: {fileID: -2461786460775119750}
   m_Layer: 3
   m_Name: EnemyP
   m_TagString: Enemy
@@ -81,7 +82,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: -5718263438796200986, guid: d0b6e9dc37761a342856b4ee473d0e20, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2, y: 2}
@@ -104,7 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   detectionRange: 5
-  attackRange: 1
+  attackRange: 1.6
   player: {fileID: 3473855832931458755, guid: 96a950c8849e4224f83202502ec88fe6, type: 3}
   layerPlayer:
     serializedVersion: 2
@@ -112,7 +113,7 @@ MonoBehaviour:
   facingRight: 1
   enemySpeed: 2
   attackCd: 5
-  attackDamage: 5
+  attackDamage: 10
   attackTimer: 0
 --- !u!114 &3981556450946102197
 MonoBehaviour:
@@ -210,3 +211,25 @@ PolygonCollider2D:
       - {x: 0.3144102, y: -0.26164007}
       - {x: 0.27107143, y: 0.4582734}
   m_UseDelaunayMesh: 0
+--- !u!95 &-2461786460775119750
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640967505010744446}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5bdd714a0414b6f4c9092dc44bc5b349, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

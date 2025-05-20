@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Boss : MonoBehaviour
 {
@@ -34,6 +36,9 @@ public class Boss : MonoBehaviour
     public float summonRadius = 5f;
     public Transform[] spawnPoints;
 
+    [Header("HEALTH BAR")]
+    public Slider slider;
+
     public float phaseTimer = 60f;
     public float currentTime = 0f;
     public float attackTimer = 0f;
@@ -53,6 +58,8 @@ public class Boss : MonoBehaviour
     void Start()
     {
         currentHp = maxHp;
+        slider.maxValue = maxHp;
+        slider.value = currentHp;
         currentState = BossState.Attack;
         isTired = false;
 
@@ -141,7 +148,7 @@ public class Boss : MonoBehaviour
 
     void SpawnBulletPattern()
     {
-        int patternType = Random.Range(0, 2);
+        int patternType = Random.Range(0, 3);
         switch (patternType)
         {
             case 0:
@@ -150,21 +157,36 @@ public class Boss : MonoBehaviour
             case 1:
                 SpawnBulletRandom(bulletAmount / 2);
                 break;
+            case 2:
+                SpawnBulletFullCircle(bulletAmount / 2, transform.rotation.eulerAngles.z);
+                break;
         }
         if (anima)
         {
             anima.SetTrigger("Attack");
         }
     }
+    void SpawnBulletFullCircle(int count, float baseAngle = 0f)
+    {
+        // Sudut penuh 360 derajat untuk lingkaran penuh
+        float angleStep = 360f / count;
+
+        for (int i = 0; i < count; i++)
+        {
+            // Hitung sudut untuk setiap bullet
+            float angle = baseAngle + (i * angleStep);
+            SpawnBullet(angle);
+        }
+    }
 
     void SpawnBulletCircle(int count, float spreadAngle, float baseAngle = 0f)
     {
         float angleStep = spreadAngle / count;
-        float startAngle = baseAngle - (spreadAngle / 2f);
+        float startAngle = baseAngle - spreadAngle;
 
         for (int i = 0; i < count; i++)
         {
-            float angle = startAngle + (i * angleStep);
+            float angle = startAngle + angleStep * i;
             SpawnBullet(angle);
         }
     }
@@ -223,7 +245,7 @@ public class Boss : MonoBehaviour
             GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
             summonEnemy.Add(enemy);
 
-            EnemyController enemyController = enemy.GetComponent<EnemyController>();
+            EnemyControl enemyController = enemy.GetComponent<EnemyControl>();
             if (enemyController != null)
             {
                 enemyController.OnEnemyDeath += OnSummonEnemyDeath;
@@ -292,11 +314,13 @@ public class Boss : MonoBehaviour
     }
 
 
-    void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         if (isTired)
         {
             currentHp -= damage;
+            slider.value = currentHp;
+
             currentHit++;
             Debug.Log($"Boss hit! Current health: {currentHp}/{maxHp}, Hits: {currentHit}/{hitsTillNextPhase}");
 
@@ -324,16 +348,17 @@ public class Boss : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            TakeDamage(10f);
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player"))
+    //    {
+    //        TakeDamage(10f);
+    //    }
+    //}
 
     void Die()
     {
+        Debug.Log("Boss defeated!");
         foreach (GameObject enemy in summonEnemy)
         {
             if (enemy != null)
@@ -341,6 +366,28 @@ public class Boss : MonoBehaviour
                 Destroy(enemy);
             }
         }
-        Destroy(gameObject);
+        StartCoroutine(ReturnToMainMenu());
+        GetComponent<Collider2D>().enabled = false;
+
+        sr.enabled = false;
+
+        IEnumerator ReturnToMainMenu()
+        {
+            // Tunggu beberapa detik
+            yield return new WaitForSeconds(2f);
+
+        
+            try
+            {
+                // Kembali ke menu utama
+                SceneManager.LoadScene("Main Menu");
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("Error loading main menu scene: " + e.Message);
+                
+            }
+        }
+
     }
 }

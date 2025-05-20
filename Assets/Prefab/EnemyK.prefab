@@ -201,7 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   detectionRange: 5
-  attackRange: 1
+  attackRange: 1.3
   player: {fileID: 3473855832931458755, guid: 96a950c8849e4224f83202502ec88fe6, type: 3}
   layerPlayer:
     serializedVersion: 2
