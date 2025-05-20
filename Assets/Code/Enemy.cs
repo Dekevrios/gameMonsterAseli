@@ -37,7 +37,8 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anima = GetComponent<Animator>();
 
-
+        FindPlayer();
+        ChangeState(EnemyState.Idle);
     }
 
     // Update is called once per frame
@@ -100,6 +101,19 @@ public class Enemy : MonoBehaviour
                 EnterAttackState();
                 break;
         }
+    }
+
+    void FindPlayer()
+    {
+        // Cara 1: Cari berdasarkan tag
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+            Debug.Log("Enemy: Player ditemukan dengan tag 'Player'");
+        }
+
     }
 
     //idle
