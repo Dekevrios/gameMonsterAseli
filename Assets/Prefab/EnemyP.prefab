@@ -105,7 +105,7 @@ MonoBehaviour:
   currentState: 0
   detectionRange: 5
   attackRange: 1
-  player: {fileID: 0}
+  player: {fileID: 3473855832931458755, guid: 96a950c8849e4224f83202502ec88fe6, type: 3}
   layerPlayer:
     serializedVersion: 2
     m_Bits: 0
@@ -155,7 +155,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!60 &7736497285723118223
 PolygonCollider2D:
   m_ObjectHideFlags: 0

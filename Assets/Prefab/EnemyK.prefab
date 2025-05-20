@@ -78,10 +78,10 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -249488030763958700, guid: 8a9ea10bf6ea981459420aa28f4dd0cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2, y: 2}
@@ -116,7 +116,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!60 &550057623341938013
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
   currentState: 0
   detectionRange: 5
   attackRange: 1
-  player: {fileID: 0}
+  player: {fileID: 3473855832931458755, guid: 96a950c8849e4224f83202502ec88fe6, type: 3}
   layerPlayer:
     serializedVersion: 2
     m_Bits: 64
